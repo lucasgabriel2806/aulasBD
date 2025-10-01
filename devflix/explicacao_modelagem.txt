@@ -1,0 +1,7 @@
+• Generalização e Especialização: Para tratar adequadamente as semelhanças entre as tabelas filmes, series e desenhos eu criei uma tabela chamada producoes, onde continha todos os campos / colunas que eram em comum para as três tabelas.
+
+E para tratar as diferenças eu criei campos / colunas em cada tabela isoladamente, por exemplo a tabela filmes que continha o campo / coluna duracao_minutos.
+
+• Relacionamento 1 para Muitos (Um-para-Muitos): Tratei esse relacionamento com a ligação de chave  primária com estrangeira nas tabelas diretores e producoes.
+
+• Relacionamento Muitos para Muitos (Muitos-para-Muitos): Tratei esse relacionamento com a ligação de chave primária com estrangeira nas tabelas atores e producoes.
