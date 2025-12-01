@@ -27,7 +27,7 @@ INSERT INTO clientes (loja_id, primeiro_nome, ultimo_nome, email, endereco_id, c
 -- 1.8 Insira um novo filme 
 -- ('TÍTULO NOVO', 'Descrição...', 2025, idioma_id 1, duracao_aluguel 5, taxa_aluguel 3.99, custo_reposicao 19.99).
 INSERT INTO filmes (titulo, descricao, ano_lancamento, idioma_id, duracao_aluguel, taxa_aluguel, custo_reposicao)
-			VALUES ('TITULO NOVO', 'Descrição...', 2025, 1, 5, 3.99, 19.99);
+			VALUES ('TÍTULO NOVO', 'Descrição...', 2025, 1, 5, 3.99, 19.99);
             
 -- 1.9 Associe o ator 'CARLOS GOMES' ao 'TÍTULO NOVO' na tabela filmes_atores.
 INSERT INTO filmes_atores (ator_id, filme_id) 
@@ -36,6 +36,8 @@ INSERT INTO filmes_atores (ator_id, filme_id)
 -- 1.10 Associe o 'TÍTULO NOVO' à categoria 'Brasileiro' na tabela filmes_categorias.
 INSERT INTO filmes_categorias (filme_id, categoria_id)
 			VALUES (1001, 17);
+
+/** -------------------------------------------------------------------------------------------------------------------------------------- */
             
 -- 2. Atualizar Registros (UPDATE)
 -- 2.1 Atualize o ultimo_nome da ator 'PENELOPE GUINESS' (id 1) para 'PENEZELOPE CRUZ'.
@@ -88,3 +90,54 @@ WHERE id_aluguel = 100;
 UPDATE filmes 
 SET custo_reposicao = custo_reposicao - (custo_reposicao * 0.10)
 WHERE ano_lancamento < 2005 AND id_filme > 0;
+
+/** -------------------------------------------------------------------------------------------------------------------------------------- */
+
+-- 3. Deletar Registros (DELETE)
+-- 3.1 Delete o ator 'CARLOS GOMES' (inserido no exercício 1.1).
+DELETE FROM atores 
+WHERE primeiro_nome = 'CARLOS' AND ultimo_nome = 'GOMES';
+
+-- 3.2 Delete a categoria 'Brasileiro' (inserida no 1.2).
+-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+DELETE FROM categorias
+WHERE nome = 'Brasilieiro' AND id_categoria = 18;
+
+-- 3.3 Delete o idioma 'Português' (inserido no 1.3).
+DELETE FROM idiomas 
+WHERE nome = 'Português' AND id_idioma > 0;
+
+-- 3.4 Delete o pagamento com id_pagamento 5.
+DELETE FROM pagamentos
+WHERE id_pagamento = 5;
+
+-- 3.5 Delete a associação (filmes_atores) entre o filme_id 1 e o ator_id 10.
+DELETE FROM filmes_atores
+WHERE filme_id = 1 AND ator_id = 10;
+
+-- 3.6 Delete o cliente 'JOANA SILVA' (inserido no 1.7), assumindo que ele não possui aluguéis.
+DELETE FROM clientes
+WHERE primeiro_nome = 'JOANA' AND ultimo_nome = 'SILVA';
+
+-- 3.7 Delete o endereco 'Rua Copacabana, 10' (inserido no 1.6), assumindo que não está mais em uso.
+DELETE FROM enderecos 
+WHERE logradouro = 'Rua Copacabana, 10' AND id_endereco > 0;
+
+-- 3.8 Delete o aluguel com id_aluguel 15.
+DELETE FROM alugueis
+WHERE id_aluguel = 15;
+
+-- 3.9 Delete o filme 'TÍTULO NOVO' (inserido no 1.8), assumindo que foi removido das tabelas de associação.
+-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+DELETE FROM filmes
+WHERE titulo = 'TÍTULO NOVO' AND id_filme > 0;
+
+DESCRIBE filmes;
+SHOW TRIGGERS LIKE 'filmes';
+
+SELECT * FROM filmes 
+WHERE titulo = 'TÍTULO NOVO';
+
+-- 3.10 Delete a cidade 'Rio de Janeiro' (inserida no 1.5), assumindo que nenhum endereço a utiliza.
+DELETE FROM cidades
+WHERE cidade = 'Rio de Janeiro' AND id_cidade > 0;
