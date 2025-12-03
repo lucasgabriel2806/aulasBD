@@ -1,3 +1,5 @@
+USE sakila_pt;
+
 -- 1. Inserir Registros (INSERT)
 -- 1.1 Insira um novo ator com o nome 'CARLOS' e sobrenome 'GOMES'.
 INSERT INTO atores (primeiro_nome, ultimo_nome) VALUES ('CARLOS', 'GOMES');
@@ -141,3 +143,63 @@ WHERE titulo = 'TÍTULO NOVO';
 -- 3.10 Delete a cidade 'Rio de Janeiro' (inserida no 1.5), assumindo que nenhum endereço a utiliza.
 DELETE FROM cidades
 WHERE cidade = 'Rio de Janeiro' AND id_cidade > 0;
+
+/** -------------------------------------------------------------------------------------------------------------------------------------- */
+-- 6. SELECT com INNER JOIN
+-- 6.1 Liste o titulo do filme e o nome do idioma de cada filme.
+SELECT filmes.titulo, idiomas.nome AS idioma
+FROM filmes 
+INNER JOIN idiomas ON filmes.idioma_id = idiomas.id_idioma;
+
+-- 6.2 Liste o primeiro_nome do cliente e o logradouro do seu endereco.
+SELECT clientes.primeiro_nome, enderecos.logradouro 
+FROM clientes 
+INNER JOIN enderecos ON clientes.endereco_id = enderecos.id_endereco;
+
+-- 6.3 Liste a data_aluguel e o primeiro_nome do cliente que realizou o aluguel.
+SELECT alugueis.data_aluguel, clientes.primeiro_nome
+FROM alugueis
+INNER JOIN clientes ON alugueis.cliente_id = clientes.id_cliente;
+
+-- 6.4 Liste o primeiro_nome do funcionario e o id_loja onde ele trabalha.
+SELECT funcionarios.primeiro_nome, funcionarios.loja_id
+FROM funcionarios
+INNER JOIN lojas ON funcionarios.loja_id = lojas.id_loja;
+
+SELECT primeiro_nome, loja_id
+FROM funcionarios;
+
+-- 6.5 Liste o nome da cidade e o nome do pais correspondente.
+SELECT cidades.cidade, paises.pais
+FROM cidades
+INNER JOIN paises ON cidades.pais_id = paises.id_pais;
+
+-- 6.6 Liste o titulo do filme e o primeiro_nome dos atores que participam dele (requer 3 tabelas: filmes, filmes_atores, atores).
+SELECT filmes.titulo AS 'Titulo do filme', atores.primeiro_nome AS 'primeiro nome do ator'
+FROM filmes
+INNER JOIN filmes_atores ON filmes.id_filme = filmes_atores.filme_id
+INNER JOIN atores ON filmes_atores.ator_id = atores.id_ator;
+
+-- 6.7 Liste o titulo do filme e o nome da categoria a que ele pertence (requer 3 tabelas).
+SELECT filmes.titulo, categorias.nome
+FROM filmes 
+INNER JOIN filmes_categorias ON filmes.id_filme = filmes_categorias.filme_id
+INNER JOIN categorias ON filmes_categorias.categoria_id = categorias.id_categoria;
+
+-- 6.8 Liste o valor do pagamento e o primeiro_nome do funcionario que o registrou.
+SELECT pagamentos.id_pagamento, pagamentos.valor AS 'valor do pagamento', funcionarios.primeiro_nome AS 'nome do funcionário'
+FROM pagamentos 
+INNER JOIN funcionarios ON pagamentos.funcionario_id = funcionarios.id_funcionario;
+
+-- 6.9 Liste o id_inventario, o id_loja e o titulo do filme correspondente.
+SELECT inventarios.id_inventario, lojas.id_loja, filmes.titulo
+FROM inventarios 
+INNER JOIN lojas ON inventarios.loja_id = lojas.id_loja
+INNER JOIN filmes ON inventarios.filme_id = filmes.id_filme;
+
+-- 6.10 Liste o primeiro_nome do cliente, seu logradouro, cidade e pais (requer 4 tabelas).
+SELECT clientes.primeiro_nome, enderecos.logradouro, cidades.cidade, paises.pais
+FROM clientes
+INNER JOIN enderecos ON clientes.endereco_id = enderecos.id_endereco
+INNER JOIN cidades ON enderecos.cidade_id = cidades.id_cidade
+INNER JOIN paises ON cidades.pais_id = paises.id_pais;
